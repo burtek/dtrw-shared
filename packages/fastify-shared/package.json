@@ -1,0 +1,61 @@
+{
+  "name": "@dtrw/fastify-shared",
+  "version": "1.0.0",
+  "description": "Shared fastify utils used in multiple projects",
+  "scripts": {
+    "prebuild": "pnpm run typecheck && pnpm run test",
+    "build": "tsdown",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint",
+    "test": "vitest run",
+    "test:watch": "vitest watch"
+  },
+  "author": "Bartosz Dotryw <burtekdotryw@gmail.com>",
+  "license": "MIT",
+  "type": "module",
+  "devDependencies": {
+    "@dtrw/eslint-config": "catalog:",
+    "@types/dockerode": "^4.0.1",
+    "@types/node": "catalog:",
+    "@types/nodemailer": "^8.0.1",
+    "dockerode": "^5.0.1",
+    "eslint": "catalog:",
+    "fastify": "^5.10.0",
+    "fastify-plugin": "^6.0.0",
+    "nodemailer": "^9.0.3",
+    "tsdown": "^0.22.14",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  },
+  "peerDependencies": {
+    "dockerode": "^5.0.0",
+    "fastify": "^5.0.0",
+    "fastify-plugin": "^5.0.0 || ^6.0.0",
+    "nodemailer": "^9.0.0"
+  },
+  "peerDependenciesMeta": {
+    "dockerode": {
+      "optional": true
+    },
+    "nodemailer": {
+      "optional": true
+    }
+  },
+  "packageManager": "pnpm@11.18.0+sha512.33d83c77da82f49fba836925c6f1b841181ec3132b670639bd012f7075f5c7cf634c5f870147c19aae7478fac01df09d8892e880454896edd23ee9b33757563c",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    "./registry/registry": {
+      "import": {
+        "types": "./dist/registry/registry.d.mts",
+        "default": "./dist/registry/registry.mjs"
+      },
+      "require": {
+        "types": "./dist/registry/registry.d.cts",
+        "default": "./dist/registry/registry.cjs"
+      }
+    },
+    "./package.json": "./package.json"
+  }
+}

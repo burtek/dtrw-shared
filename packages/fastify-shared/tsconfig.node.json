@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": ["node"],
+
+    "allowJs": true,
+    "checkJs": true
+  },
+  "files": ["eslint.config.mjs", "tsdown.config.ts"]
+}
