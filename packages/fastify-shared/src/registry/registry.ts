@@ -80,17 +80,21 @@ function topoSort(entries: PluginEntry[]): PluginEntry[] {
     return result;
 }
 
-export function createPluginRegistry(fastify: FastifyInstance) {
+export function createPluginRegistry(fastify: FastifyInstance): Registry {
     let registered = false;
     const entries: PluginEntry[] = [];
 
-    const registry = {
-        use<T extends Record<string, unknown>>(plugin: FastifyPluginCallback<T>, opts?: T) {
+    const registry: Registry = {
+        use<T extends Record<string, unknown>>(plugin: FastifyPluginCallback<T>, opts?: T): Registry {
             if (registered) {
                 throw new Error('Cannot add new plugins after registerAll has been called');
             }
 
             const { name, dependencies } = getPluginMeta(plugin);
+
+            if (entries.some(e => e.name === name)) {
+                throw new Error(`Plugin with name "${name}" has already been registered`);
+            }
 
             entries.push({ plugin, opts, name, dependencies });
 
@@ -110,4 +114,9 @@ export function createPluginRegistry(fastify: FastifyInstance) {
     };
 
     return registry;
+}
+
+interface Registry {
+    use: <T extends Record<string, unknown>>(plugin: FastifyPluginCallback<T>, opts?: T) => Registry;
+    registerAll: () => void;
 }
