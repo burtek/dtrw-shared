@@ -8,7 +8,7 @@ permissions:
   contents: read
 
 jobs:
-  release-please:
+  release:
     runs-on: ubuntu-latest
     steps:
       - id: package-name
@@ -28,18 +28,19 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           install-deps: true
-      - name: Navigate to package directory
-        run: cd packages/${{ steps.package-name.outputs.package }}
       - id: tests
         name: Run tests
+        working-directory: ./packages/${{ steps.package-name.outputs.package }}
         run: pnpm test
         background: true
       - id: typecheck
         name: Run typecheck
+        working-directory: ./packages/${{ steps.package-name.outputs.package }}
         run: pnpm typecheck
         background: true
       - id: build
         name: Build
+        working-directory: ./packages/${{ steps.package-name.outputs.package }}
         run: pnpm build
         background: true
       - id: wait
@@ -47,4 +48,5 @@ jobs:
         wait: [tests, typecheck, build]
       - id: release
         name: Build
+        working-directory: ./packages/${{ steps.package-name.outputs.package }}
         run: pnpm publish --access public --no-git-checks
