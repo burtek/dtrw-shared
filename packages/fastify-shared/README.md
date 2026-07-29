@@ -9,7 +9,6 @@ Shared Fastify utilities used across the DTRW ecosystem.
 * [Features](#features)
 * [Installation](#installation)
 * [Usage](#usage)
-
   * [Services registry](#services-registry)
   * [Authelia plugin](#authelia-plugin)
   * [Node Mailer plugin](#node-mailer-plugin)
