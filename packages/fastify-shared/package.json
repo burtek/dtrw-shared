@@ -1,6 +1,6 @@
 {
   "name": "@dtrw/fastify-shared",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Shared fastify utils used in multiple projects",
   "scripts": {
     "prebuild": "pnpm run typecheck && pnpm run test",
