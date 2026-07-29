@@ -46,6 +46,16 @@
     "dist"
   ],
   "exports": {
+    "./plugins/authelia": {
+      "import": {
+        "types": "./dist/plugins/authelia.d.mts",
+        "default": "./dist/plugins/authelia.mjs"
+      },
+      "require": {
+        "types": "./dist/plugins/authelia.d.cts",
+        "default": "./dist/plugins/authelia.cjs"
+      }
+    },
     "./registry/registry": {
       "import": {
         "types": "./dist/registry/registry.d.mts",
