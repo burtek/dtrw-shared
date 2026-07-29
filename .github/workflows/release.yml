@@ -1,30 +1,24 @@
-name: test
+name: release
 
 on:
-  push:
-    branches:
-      - master
-    paths:
-      - package.json
-      - vitest.config.ts
-      - pnpm-lock.yaml
-      - pnpm-workspace.yaml
-      - .github/**/*
-      - packages/**/*
-  pull_request:
-    branches:
-      - master
+  release:
+    types: [published]
+
+permissions:
+  contents: read
 
 jobs:
-  test:
-    name: Run tests, typecheck, lint, and build
+  release-please:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [24, 26]
-
     steps:
+      - id: package-name
+        name: Get package name
+        run: |
+            TAG="${{ github.event.release.tag_name }}"
+            PACKAGE="${TAG%@v*}"
+
+            echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+            echo "package=$PACKAGE" >> "$GITHUB_OUTPUT"
       - id: checkout
         name: Checkout code
         uses: actions/checkout@v7
@@ -34,13 +28,11 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           install-deps: true
+      - name: Navigate to package directory
+        run: cd packages/${{ steps.package-name.outputs.package }}
       - id: tests
         name: Run tests
         run: pnpm test
-        background: true
-      - id: lint
-        name: Run lint
-        run: pnpm lint
         background: true
       - id: typecheck
         name: Run typecheck
@@ -52,6 +44,7 @@ jobs:
         background: true
       - id: wait
         name: Wait for background jobs to finish
-        wait: [tests, typecheck, lint, build]
-      - name: Verify repository is clean
-        run: git diff-index --quiet HEAD --
+        wait: [tests, typecheck, build]
+      - id: release
+        name: Build
+        run: pnpm publish --access public --no-publish-branch-check
