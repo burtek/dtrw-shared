@@ -13,20 +13,29 @@ interface PluginEntry {
 
 interface PluginMeta {
     name: string;
-    dependencies: string[];
+    dependencies?: string[];
 }
 
 function assertHasMeta(plugin: object): asserts plugin is { [kPluginMeta]: PluginMeta } {
     if (!(kPluginMeta in plugin)
         || typeof plugin[kPluginMeta] !== 'object'
         || plugin[kPluginMeta] === null
-        || !('name' in plugin[kPluginMeta])
-        || typeof plugin[kPluginMeta].name !== 'string'
-        || !('dependencies' in plugin[kPluginMeta])
-        || !Array.isArray(plugin[kPluginMeta].dependencies)
-        || !plugin[kPluginMeta].dependencies.every(dep => typeof dep === 'string')
     ) {
         throw new Error('Fastify plugin is missing metadata. Did you forget to wrap it with fp()?');
+    }
+
+    if (!('name' in plugin[kPluginMeta])
+        || typeof plugin[kPluginMeta].name !== 'string'
+    ) {
+        throw new Error('Fastify plugin is missing a name in its metadata');
+    }
+
+    if ('dependencies' in plugin[kPluginMeta] && plugin[kPluginMeta].dependencies !== undefined) {
+        if (!Array.isArray(plugin[kPluginMeta].dependencies)
+            || !plugin[kPluginMeta].dependencies.every(dep => typeof dep === 'string')
+        ) {
+            throw new Error('Fastify plugin dependencies must be an array of strings');
+        }
     }
 }
 function getPluginMeta<T extends Record<string, unknown>>(plugin: FastifyPluginCallback<T>) {
@@ -90,7 +99,7 @@ export function createPluginRegistry(fastify: FastifyInstance): Registry {
                 throw new Error('Cannot add new plugins after registerAll has been called');
             }
 
-            const { name, dependencies } = getPluginMeta(plugin);
+            const { name, dependencies = [] } = getPluginMeta(plugin);
 
             if (entries.some(e => e.name === name)) {
                 throw new Error(`Plugin with name "${name}" has already been registered`);

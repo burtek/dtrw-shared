@@ -4,7 +4,7 @@ import fp from 'fastify-plugin';
 import { createPluginRegistry } from './registry.js';
 
 
-function makePlugin(name: string, dependencies: string[] = []): FastifyPluginCallback {
+function makePlugin(name: string, dependencies?: string[]): FastifyPluginCallback {
     const plugin: FastifyPluginCallback = (instance, options, done) => {
         done();
     };
