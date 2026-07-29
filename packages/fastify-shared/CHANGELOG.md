@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/burtek/dtrw-shared/compare/fastify-shared@v1.0.0...fastify-shared@v1.0.1) (2026-07-29)
+
+
+### Bug Fixes
+
+* **fastify-shared:** plugin registry types ([46dd071](https://github.com/burtek/dtrw-shared/commit/46dd071b670703bccdea8eb45bfcd291c34c06cb))
+
 ## 1.0.0 (2026-07-29)
 
 
