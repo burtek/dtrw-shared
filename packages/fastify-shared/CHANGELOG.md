@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/burtek/dtrw-shared/compare/fastify-shared@v1.0.1...fastify-shared@v1.0.2) (2026-07-29)
+
+
+### Bug Fixes
+
+* **fastify-shared:** allow plugin without dependencies in the registry ([9930a76](https://github.com/burtek/dtrw-shared/commit/9930a765b6396200988b040328cd877b3b0e9394))
+
 ## [1.0.1](https://github.com/burtek/dtrw-shared/compare/fastify-shared@v1.0.0...fastify-shared@v1.0.1) (2026-07-29)
 
 
