@@ -1,0 +1,10 @@
+{
+  "plugins": [
+    "node-workspace"
+  ],
+  "packages": {
+    "packages/fastify-shared": {
+      "release-type": "node"
+    }
+  }
+}

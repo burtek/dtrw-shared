@@ -1,0 +1,44 @@
+name: Test latest changes
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  test:
+    name: Run tests, typecheck, lint, and build
+    runs-on: ubuntu-latest
+
+    steps:
+      - id: checkout
+        name: Checkout code
+        uses: actions/checkout@v7
+      - id: setup-node
+        name: Setup node with pnpm
+        uses: ./.github/actions/setup-node-pnpm
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          install-deps: true
+      - id: tests
+        name: Run tests
+        run: pnpm test
+        background: true
+      - id: lint
+        name: Run lint
+        run: pnpm lint
+        background: true
+      - id: typecheck
+        name: Run typecheck
+        run: pnpm typecheck
+        background: true
+      - id: build
+        name: Build
+        run: pnpm build
+        background: true
+      - id: wait
+        name: Wait for background jobs to finish
+        wait: [tests, typecheck, lint, build]

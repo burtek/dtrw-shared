@@ -1,0 +1,38 @@
+name: Setup Node.js and pnpm
+description: >
+  This action sets up a Node.js environment with pnpm installed.
+  It also configures caching for pnpm dependencies.
+
+inputs:
+  node-version:
+    description: Node.js version to set up
+    required: false
+    default: 26.5
+  install-deps:
+    description: Whether to install dependencies after setting up Node.js and pnpm
+    required: false
+    default: 'true'
+  shell:
+    description: The shell to use for running commands (bash, sh, zsh, etc.)
+    required: false
+    default: bash
+
+runs:
+  using: "composite"
+  steps:
+      - id: install-pnpm
+        name: Install pnpm
+        uses: pnpm/action-setup@v6.0.9
+
+      - id: setup-node
+        name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: ${{ inputs.node-version }}
+          cache: pnpm
+
+      - id: install-deps
+        name: Install dependencies
+        shell: ${{ inputs.shell }}
+        if: ${{ inputs.install-deps == 'true' }}
+        run: pnpm ci
