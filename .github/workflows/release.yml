@@ -6,6 +6,7 @@ on:
 
 permissions:
   contents: read
+  id-token: write
 
 jobs:
   release:
@@ -47,6 +48,6 @@ jobs:
         name: Wait for background jobs to finish
         wait: [tests, typecheck, build]
       - id: release
-        name: Build
+        name: Release
         working-directory: ./packages/${{ steps.package-name.outputs.package }}
         run: pnpm publish --access public --no-git-checks
