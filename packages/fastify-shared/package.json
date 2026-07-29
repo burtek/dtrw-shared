@@ -1,6 +1,6 @@
 {
   "name": "@dtrw/fastify-shared",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Shared fastify utils used in multiple projects",
   "scripts": {
     "prebuild": "pnpm run typecheck && pnpm run test",
@@ -54,6 +54,16 @@
       "require": {
         "types": "./dist/plugins/authelia.d.cts",
         "default": "./dist/plugins/authelia.cjs"
+      }
+    },
+    "./plugins/mailer": {
+      "import": {
+        "types": "./dist/plugins/mailer.d.mts",
+        "default": "./dist/plugins/mailer.mjs"
+      },
+      "require": {
+        "types": "./dist/plugins/mailer.d.cts",
+        "default": "./dist/plugins/mailer.cjs"
       }
     },
     "./registry/registry": {

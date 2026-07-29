@@ -46,10 +46,24 @@ import { createAuthDecorator } from '@dtrw/fastify-shared/plugins/authelia';
 const app = fastify();
 const auth = createAuthDecorator();
 
-app.regiter(auth);
+app.register(auth);
 
 // requests will have a user property:
 req.user?: { username: string, groups?: string[] }
+```
+
+### Node Mailer plugin
+
+```ts
+import { createMailerPlugin } from '@dtrw/fastify-shared/plugins/mailer';
+
+const app = fastify();
+const mailer = createMailerPlugin('gmail_username', 'gmail_password', 'From Name <email@example.com>');
+
+app.register(mailer);
+
+await app.mailer.sendMail(mailObjectForNodeMailer);
+
 ```
 
 ## Peer Dependencies
