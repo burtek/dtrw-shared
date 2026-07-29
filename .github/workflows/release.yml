@@ -47,4 +47,4 @@ jobs:
         wait: [tests, typecheck, build]
       - id: release
         name: Build
-        run: pnpm publish --access public --no-publish-branch-check
+        run: pnpm publish --access public --no-git-checks
