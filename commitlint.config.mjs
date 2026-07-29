@@ -13,12 +13,12 @@ const packageTypes = new Set([
     'perf',
     'refactor',
     'test',
+    'docs',
 ]);
 
 const repoTypes = new Set([
     'chore',
     'ci',
-    'docs',
     'release',
 ]);
 
