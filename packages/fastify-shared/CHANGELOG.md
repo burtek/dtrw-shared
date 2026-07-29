@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.3](https://github.com/burtek/dtrw-shared/compare/fastify-shared@v1.0.2...fastify-shared@v1.0.3) (2026-07-29)
+
+
+### Bug Fixes
+
+* **fastify-shared:** re-publish fastify-shared ([a0095f3](https://github.com/burtek/dtrw-shared/commit/a0095f3ed76513e4c737a1e2151c2d0548e40f0f))
+
 ## [1.0.2](https://github.com/burtek/dtrw-shared/compare/fastify-shared@v1.0.1...fastify-shared@v1.0.2) (2026-07-29)
 
 
