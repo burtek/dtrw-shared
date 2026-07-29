@@ -13,6 +13,19 @@
   "author": "Bartosz Dotryw <burtekdotryw@gmail.com>",
   "license": "MIT",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/burtek/dtrw-shared.git",
+    "directory": "packages/fastify-shared"
+  },
+  "homepage": "https://github.com/burtek/dtrw-shared/tree/master/packages/fastify-shared#readme",
+  "bugs": {
+    "url": "https://github.com/burtek/dtrw-shared/issues"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "devDependencies": {
     "@dtrw/eslint-config": "catalog:",
     "@types/dockerode": "^4.0.1",
